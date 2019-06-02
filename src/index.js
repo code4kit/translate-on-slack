@@ -52,12 +52,18 @@ rtmClient.on('reaction_added', event => {
       inclusive: true,
       count: 1
     });
-
     if (!('text' in msgWithReaction.messages[0])) {
       return;
     }
     if (!(event.reaction in reactionToLang)) {
       return;
+    }
+    if ('subtype' in msgWithReaction.messages[0]) {
+      if (msgWithReaction.messages[0].subtype === 'bot_message' && 'attachments' in msgWithReaction.messages[0]) {
+        if ('text' in msgWithReaction.messages[0].attachments[0]) {
+          msgWithReaction.messages[0].text += msgWithReaction.messages[0].attachments[0].text;
+        }
+      }
     }
     translate(msgWithReaction.messages[0].text, reactionToLang[event.reaction], translated => {
       transToThread(event.item.channel, translated, event.item.ts);

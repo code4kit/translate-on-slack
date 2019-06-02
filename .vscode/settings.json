@@ -1,4 +1,8 @@
 {
   "semistandard.autoFixOnSave": true,
-  "semistandard._legacyModuleResolve": true
+  "semistandard._legacyModuleResolve": true,
+  "files.associations": {
+    "string": "cpp",
+    "string_view": "cpp"
+  }
 }
