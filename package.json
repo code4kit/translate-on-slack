@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@slack/client": "^5.0.1",
+    "dotenv": "^8.0.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "documentation": "^11.0.0",
+    "semistandard": "^13.0.1"
+  },
+  "scripts": {
+    "start": "node ./src/index.js",
+    "semistandard": "semistandard ./src",
+    "semistandard:fix": "semistandard --fix ./src",
+    "documentation:build": "documentation build -f html ./src -o ./doc/",
+    "documentation:add-text-to-markdown": "documentation build -f md ./src | add-text-to-markdown ./README.md --section 'DocumentationJS' --write"
+  },
+  "main": "./src/index.js"
+}
