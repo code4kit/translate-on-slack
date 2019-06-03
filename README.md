@@ -5,21 +5,27 @@ Slack bot with Google Translate.
 * * *
 
 ## Slack
-*Invite this bot.
+
+\*Invite this bot.
 
 ### Message Translate
+
 ![Message Translate](./img/message-translate.png)
 
 ### Post Message with Translate
+
 ![Post Message with Translate](./img/post-message-with-translate.png)
 
 ### Setting
+
 ![Setting](./img/setting.png)
 
 ### Overwrite setting
+
 ![Overwrite setting](./img/overwrite-setting.png)
 
 ### Help
+
 ![Help](./img/help.png)
 
 * * *
@@ -53,15 +59,23 @@ gitmoji -l
 #### Table of Contents
 
 - [config][1]
-- [reactionToLang][2]
-- [transToThread][3]
-  - [Parameters][4]
-- [replyToThread][5]
+- [LANGS][2]
+- [LANGS][3]
+- [reactionToLang][4]
+- [transToThread][5]
   - [Parameters][6]
-- [request][7]
-- [LANGS][8]
-- [translate][9]
-  - [Parameters][10]
+- [replyToThread][7]
+  - [Parameters][8]
+- [path][9]
+- [SETTING_JSON][10]
+- [reaction2lang][11]
+- [editing][12]
+- [memo][13]
+- [update][14]
+  - [Parameters][15]
+- [request][16]
+- [translate][17]
+  - [Parameters][18]
 
 ### config
 
@@ -70,11 +84,23 @@ gitmoji -l
 - **version**: 1.0.0
 - **author**: Motone Adachi (@waritocomatta)
 
+### LANGS
+
+by [https://cloud.google.com/translate/docs/languages][19]
+
+Type: [Array][20]&lt;[string][21]>
+
+### LANGS
+
+by [https://cloud.google.com/translate/docs/languages][19]
+
+Type: [Array][20]&lt;[string][21]>
+
 ### reactionToLang
 
 Reaction to Lang for func of 'translate'.
 
-Type: [string][11]&lt;[string][11]>
+Type: [string][21]&lt;[string][21]>
 
 ### transToThread
 
@@ -84,9 +110,9 @@ trans to thread.
 
 #### Parameters
 
-- `ch` **[string][11]** 
-- `trans` **[object][12]** 
-- `ts` **[string][11]** 
+- `ch` **[string][21]** 
+- `trans` **[object][22]** 
+- `ts` **[string][21]** 
 
 ### replyToThread
 
@@ -94,9 +120,41 @@ reply to thread.
 
 #### Parameters
 
-- `ch` **[string][11]** 
-- `msg` **[string][11]** 
-- `ts` **[string][11]** 
+- `ch` **[string][21]** 
+- `msg` **[string][21]** 
+- `ts` **[string][21]** 
+
+### path
+
+**Meta**
+
+- **version**: 1.0.0
+- **author**: Motone Adachi (@waritocomatta)
+
+### SETTING_JSON
+
+Type: [string][21]
+
+### reaction2lang
+
+Type: [string][21]&lt;[string][21]>
+
+### editing
+
+Type: [boolean][23]
+
+### memo
+
+Type: [string][21]&lt;[string][21]>
+
+### update
+
+update for reaction to lang.
+
+#### Parameters
+
+- `reaction` **[string][21]** 
+- `lang` **[string][21]** 
 
 ### request
 
@@ -105,42 +163,58 @@ reply to thread.
 - **version**: 1.0.0
 - **author**: Motone Adachi (@waritocomatta)
 
-### LANGS
-
-Type: [Array][13]&lt;[string][11]>
-
 ### translate
 
 translate
 
 #### Parameters
 
-- `msg`  {string}
-- `lang`  {'en'|'ja'|'km'}
-- `callback`  {function}
+- `msg` **[string][21]** 
+- `lang` **[string][21]** 
+- `callback` **[string][21]** 
 
 [1]: #config
 
-[2]: #reactiontolang
+[2]: #langs
 
-[3]: #transtothread
+[3]: #langs-1
 
-[4]: #parameters
+[4]: #reactiontolang
 
-[5]: #replytothread
+[5]: #transtothread
 
-[6]: #parameters-1
+[6]: #parameters
 
-[7]: #request
+[7]: #replytothread
 
-[8]: #langs
+[8]: #parameters-1
 
-[9]: #translate
+[9]: #path
 
-[10]: #parameters-2
+[10]: #setting_json
 
-[11]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[11]: #reaction2lang
 
-[12]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[12]: #editing
 
-[13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[13]: #memo
+
+[14]: #update
+
+[15]: #parameters-2
+
+[16]: #request
+
+[17]: #translate
+
+[18]: #parameters-3
+
+[19]: https://cloud.google.com/translate/docs/languages
+
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
