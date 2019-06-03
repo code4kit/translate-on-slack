@@ -10,47 +10,78 @@
 require('dotenv').config();
 const { RTMClient, WebClient } = require('@slack/client');
 const translate = require('./lib/translate');
+const reaction2lang = require('./lib/reaction2lang');
 const http = require('http');
 
 const rtmClient = new RTMClient(process.env.TOKEN);
 const webClient = new WebClient(process.env.TOKEN);
 
 /**
+ * by https://cloud.google.com/translate/docs/languages
+ * @type {string[]}
+ */
+const LANGS = ['af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'bs', 'bg', 'ca', 'ceb', 'zh-CN', 'zh-TW', 'co', 'hr', 'cs', 'da', 'nl', 'en', 'eo', 'et', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gu', 'ht', 'ha', 'haw', 'he**', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'ga', 'it', 'ja', 'jw', 'kn', 'kk', 'km', 'ko', 'ku', 'ky', 'lo', 'la', 'lv', 'lt', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mn', 'my', 'ne', 'no', 'ny', 'ps', 'fa', 'pl', 'pt', 'pa', 'ro', 'ru', 'sm', 'gd', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tl', 'tg', 'ta', 'te', 'th', 'tr', 'uk', 'ur', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu', 'zh', 'iw'];
+
+/**
  * Reaction to Lang for func of 'translate'.
  * @type {string<string>}
  */
-const reactionToLang = {
-  'gb': 'en',
-  'flag-gb': 'en',
-  'jp': 'ja',
-  'flag-jp': 'ja',
-  'flag-kh': 'km',
-  'de': 'de',
-  'flag-de': 'de',
-  'fr': 'fr',
-  'flag-fr': 'fr',
-  'es': 'es',
-  'flag-es': 'es',
-  'ru': 'ru',
-  'flag-ru': 'ru',
-  'flag-ke': 'sw',
-  'cn': 'zh-CN',
-  'flag-cn': 'zh-TW',
-  'kr': 'ko',
-  'flag-kr': 'ko'
-};
+let reactionToLang = reaction2lang.load();
 
 rtmClient.on('message', event => {
+  // is there text?
   if (!('text' in event)) {
     return;
   }
+
+  // setting
+  if (event.text.indexOf(':globe_with_meridians:') === 0 && event.text.indexOf('\n') !== -1) {
+    const lines = event.text.split('\n');
+    for (let i = 1; i < lines.length; i++) {
+      if (!lines[i].match(/^:.+:.+/)) {
+        continue;
+      }
+      const reactionForSetting = lines[i].split(':')[1];
+      const langForSetting = lines[i].replace(`:${reactionForSetting}:`, '').replace(/ /g, '');
+      if (LANGS.indexOf(langForSetting) === -1) {
+        continue;
+      }
+      reaction2lang.update(reactionForSetting, langForSetting);
+    }
+    reaction2lang.save();
+    reactionToLang = reaction2lang.load();
+    webClient.chat.postMessage({
+      channel: event.channel,
+      text: `<!here> Updated setting by <@${event.user}>`,
+      username: process.env.USERNAME,
+      icon_emoji: process.env.ICON_EMOJI
+    });
+    return;
+  }
+
+  // is top reaction?
   if (!event.text.match(/^:.+:.+/)) {
     return;
   }
+
   const reaction = event.text.split(':')[1];
+
+  // show setting
+  if (reaction === 'globe_with_meridians' && event.text.match(/setting/i)) {
+    let replyMsg = '[SETTING]';
+    for (const reaction in reactionToLang) {
+      replyMsg += `\n:${reaction}: ${reactionToLang[reaction]}`;
+    }
+    replyToThread(event.channel, replyMsg, event.ts);
+    return;
+  }
+
+  // is there this reaction?
   if (!(reaction in reactionToLang)) {
     return;
   }
+
+  // reply translate to channel.
   translate(event.text.replace(`:${reaction}:`, '').trim(), reactionToLang[reaction], translated => {
     transToThread(event.channel, translated, event.ts);
   });
@@ -115,8 +146,8 @@ const replyToThread = (ch, msg, ts) => {
     channel: ch,
     text: msg,
     thread_ts: ts,
-    username: 'translate by google',
-    icon_emoji: ':globe_with_meridians:'
+    username: process.env.USERNAME,
+    icon_emoji: process.env.ICON_EMOJI
   });
 };
 
