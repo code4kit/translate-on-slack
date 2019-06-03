@@ -4,6 +4,26 @@ Slack bot with Google Translate.
 
 * * *
 
+## Slack
+*Invite this bot.
+
+### Message Translate
+![Message Translate](./img/message-translate.png)
+
+### Post Message with Translate
+![Post Message with Translate](./img/post-message-with-translate.png)
+
+### Setting
+![Setting](./img/setting.png)
+
+### Overwrite setting
+![Overwrite setting](./img/overwrite-setting.png)
+
+### Help
+![Help](./img/help.png)
+
+* * *
+
 ## Coding Style
 
 ```bash

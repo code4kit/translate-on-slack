@@ -22,6 +22,12 @@ const webClient = new WebClient(process.env.TOKEN);
  */
 const LANGS = ['af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'bs', 'bg', 'ca', 'ceb', 'zh-CN', 'zh-TW', 'co', 'hr', 'cs', 'da', 'nl', 'en', 'eo', 'et', 'fi', 'fr', 'fy', 'gl', 'ka', 'de', 'el', 'gu', 'ht', 'ha', 'haw', 'he**', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'ga', 'it', 'ja', 'jw', 'kn', 'kk', 'km', 'ko', 'ku', 'ky', 'lo', 'la', 'lv', 'lt', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mn', 'my', 'ne', 'no', 'ny', 'ps', 'fa', 'pl', 'pt', 'pa', 'ro', 'ru', 'sm', 'gd', 'sr', 'st', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'su', 'sw', 'sv', 'tl', 'tg', 'ta', 'te', 'th', 'tr', 'uk', 'ur', 'uz', 'vi', 'cy', 'xh', 'yi', 'yo', 'zu', 'zh', 'iw'];
 
+if (!process.env.ICON_EMOJI) {
+  process.env.ICON_EMOJI = 'globe_with_meridians';
+} else if (process.env.ICON_EMOJI === '') {
+  process.env.ICON_EMOJI = 'globe_with_meridians';
+}
+
 /**
  * Reaction to Lang for func of 'translate'.
  * @type {string<string>}
@@ -35,7 +41,7 @@ rtmClient.on('message', event => {
   }
 
   // setting
-  if (event.text.indexOf(':globe_with_meridians:') === 0 && event.text.indexOf('\n') !== -1) {
+  if (event.text.indexOf(`:${process.env.ICON_EMOJI}:`) === 0 && event.text.indexOf('\n') !== -1) {
     const lines = event.text.split('\n');
     for (let i = 1; i < lines.length; i++) {
       if (!lines[i].match(/^:.+:.+/)) {
@@ -67,12 +73,18 @@ rtmClient.on('message', event => {
   const reaction = event.text.split(':')[1];
 
   // show setting
-  if (reaction === 'globe_with_meridians' && event.text.match(/setting/i)) {
+  if (reaction === process.env.ICON_EMOJI && event.text.match(/setting/i)) {
     let replyMsg = '[SETTING]';
     for (const reaction in reactionToLang) {
       replyMsg += `\n:${reaction}: ${reactionToLang[reaction]}`;
     }
     replyToThread(event.channel, replyMsg, event.ts);
+    return;
+  }
+
+  // show help
+  if (reaction === process.env.ICON_EMOJI && event.text.match(/help/i)) {
+    replyToThread(event.channel, 'https://github.com/code4kit/translate-on-slack', event.ts);
     return;
   }
 
@@ -147,7 +159,7 @@ const replyToThread = (ch, msg, ts) => {
     text: msg,
     thread_ts: ts,
     username: process.env.USERNAME,
-    icon_emoji: process.env.ICON_EMOJI
+    icon_emoji: `:${process.env.ICON_EMOJI}:`
   });
 };
 
