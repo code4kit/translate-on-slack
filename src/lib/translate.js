@@ -12,7 +12,7 @@ const request = require('requestretry');
 /**
  * @type {string[]}
  */
-const LANGS = ['en', 'ja', 'km'];
+const LANGS = ['en', 'ja', 'km', 'de', 'fr', 'es', 'ru', 'sw', 'zh-CN', 'zh-TW', 'ko'];
 
 /**
  * translate

@@ -24,7 +24,20 @@ const reactionToLang = {
   'flag-gb': 'en',
   'jp': 'ja',
   'flag-jp': 'ja',
-  'flag-kh': 'km'
+  'flag-kh': 'km',
+  'de': 'de',
+  'flag-de': 'de',
+  'fr': 'fr',
+  'flag-fr': 'fr',
+  'es': 'es',
+  'flag-es': 'es',
+  'ru': 'ru',
+  'flag-ru': 'ru',
+  'flag-ke': 'sw',
+  'cn': 'zh-CN',
+  'flag-cn': 'zh-TW',
+  'kr': 'ko',
+  'flag-kr': 'ko'
 };
 
 rtmClient.on('message', event => {
@@ -45,27 +58,26 @@ rtmClient.on('message', event => {
 
 rtmClient.on('reaction_added', event => {
   (async () => {
-    const msgWithReaction = await webClient.channels.history({
+    const reactionResult = await webClient.channels.history({
       channel: event.item.channel,
       latest: event.item.ts,
       oldest: event.item.ts,
       inclusive: true,
       count: 1
     });
-    if (!('text' in msgWithReaction.messages[0])) {
+    const reactionMsg = reactionResult.messages[0];
+    if (!('text' in reactionMsg)) {
       return;
     }
     if (!(event.reaction in reactionToLang)) {
       return;
     }
-    if ('subtype' in msgWithReaction.messages[0]) {
-      if (msgWithReaction.messages[0].subtype === 'bot_message' && 'attachments' in msgWithReaction.messages[0]) {
-        if ('text' in msgWithReaction.messages[0].attachments[0]) {
-          msgWithReaction.messages[0].text += msgWithReaction.messages[0].attachments[0].text;
-        }
+    if (reactionMsg.text === '' && 'attachments' in reactionMsg) {
+      if ('text' in reactionMsg.attachments[0]) {
+        reactionMsg.text += reactionMsg.attachments[0].text;
       }
     }
-    translate(msgWithReaction.messages[0].text, reactionToLang[event.reaction], translated => {
+    translate(reactionMsg.text, reactionToLang[event.reaction], translated => {
       transToThread(event.item.channel, translated, event.item.ts);
     });
   })();
