@@ -135,14 +135,15 @@ rtmClient.start();
  * @see replyToThread
  */
 const transToThread = (ch, trans, ts) => {
+  let tran = trans.sentences.map(x => x['trans']).join('');
   replyToThread(
     ch,
-    trans.sentences[0].trans,
+    tran,
     ts
   );
   replyToThread(
     ch,
-    `\`\`\`AUTO JUDGMENT: ${trans.src}\n\n${trans.sentences[0].trans}\`\`\``,
+    `\`\`\`AUTO JUDGMENT: ${trans.src}\n\n${tran}\`\`\``,
     ts
   );
 };
