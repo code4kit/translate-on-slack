@@ -7,8 +7,8 @@
     "requestretry": "^4.0.0"
   },
   "devDependencies": {
-    "documentation": "^11.0.0",
-    "semistandard": "^13.0.1"
+    "documentation": "11.0.0",
+    "semistandard": "13.0.1"
   },
   "scripts": {
     "start": "node ./src/index.js",
