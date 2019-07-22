@@ -7,7 +7,7 @@
     "requestretry": "^4.0.0"
   },
   "devDependencies": {
-    "documentation": "12.0.2",
+    "documentation": "12.0.3",
     "semistandard": "13.0.1"
   },
   "scripts": {
