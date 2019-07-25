@@ -138,12 +138,7 @@ const transToThread = (ch, trans, ts) => {
   let tran = trans.sentences.map(x => x['trans']).join('');
   replyToThread(
     ch,
-    tran,
-    ts
-  );
-  replyToThread(
-    ch,
-    `\`\`\`AUTO JUDGMENT: ${trans.src}\n\n${tran}\`\`\``,
+    `Detected Language: ${trans.src}\n\n${tran}`,
     ts
   );
 };
