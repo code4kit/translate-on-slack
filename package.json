@@ -7,8 +7,8 @@
     "requestretry": "^4.0.0"
   },
   "devDependencies": {
-    "commitizen": "^4.0.3",
-    "cz-emoji": "^1.1.2",
+    "commitizen": "4.0.3",
+    "cz-emoji": "1.1.2",
     "documentation": "12.0.3",
     "semistandard": "13.0.1"
   },
