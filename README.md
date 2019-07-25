@@ -38,16 +38,10 @@ semistandard --fix
 
 * * *
 
-## [.commit_template](.commit_template)
+## Commit Style
 
 ```bash
-git config commit.template .commit_template
-```
-
-by <https://github.com/carloscuesta/gitmoji-cli>
-
-```bash
-gitmoji -l
+npm run-script commit
 ```
 
 * * *
