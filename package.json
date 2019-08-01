@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@slack/client": "^5.0.1",
+    "@slack/client": "^5.0.2",
     "dotenv": "^8.0.0",
-    "fs-extra": "^8.0.1",
+    "fs-extra": "^8.1.0",
     "request": "^2.88.0",
     "requestretry": "^4.0.0"
   },
