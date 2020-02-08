@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "commitizen": "4.0.3",
-    "cz-emoji": "1.1.2",
+    "cz-emoji": "1.2.0",
     "documentation": "12.1.4",
     "semistandard": "14.2.0"
   },
