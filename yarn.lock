@@ -6363,13 +6363,13 @@ request@^2.87.0, request@^2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-requestretry@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/requestretry/-/requestretry-4.0.0.tgz#4e9e7280a7d8561bf33e9925264cf026e2be3e89"
-  integrity sha512-ST8m0+5FQH2FA+gbzUQyOQjUwHf22kbPQnd6TexveR0p+2UV1YYBg+Roe7BnKQ1Bb/+LtJwwm0QzxK2NA20Cug==
+requestretry@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/requestretry/-/requestretry-5.0.0.tgz#be630c72de3da357e2bf5ebfb5ed6a4e14535ccb"
+  integrity sha512-Rx0ETW0O1K+PAL/w8XVE2yhBCEtEsu6H690qbyCBT9mAHetXaO3BQ5hO5QGGkawTu9jG29ErmfqJZwX+dUy4tw==
   dependencies:
     extend "^3.0.2"
-    lodash "^4.17.10"
+    lodash "^4.17.15"
     when "^3.7.7"
 
 require-directory@^2.1.1:
