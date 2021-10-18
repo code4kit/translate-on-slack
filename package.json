@@ -4,7 +4,7 @@
     "dotenv": "^8.0.0",
     "fs-extra": "^8.1.0",
     "request": "^2.88.0",
-    "requestretry": "^4.0.0"
+    "requestretry": "^6.0.0"
   },
   "devDependencies": {
     "commitizen": "4.0.3",
